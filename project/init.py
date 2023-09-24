@@ -9,6 +9,7 @@ from django.core.management.utils import get_random_secret_key
 
 colorama_init()
 
+# -------------------------------------------------------------- Tool Functions ------------------------------------------------------
 def create_env_file(data: dict):
     print(f'{Fore.GREEN}Creating application environment file.{Style.RESET_ALL}')
     try:
@@ -30,6 +31,10 @@ def rename_project(name: str):
 
     os.rename('./project', f'./{name}')
 
+# -------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------- Start of script  --------------------------------------------------------------------------
+
 env_data = {}
 
 env_data['debug'] = "True"
@@ -46,32 +51,12 @@ env_data['secret_key'] = get_random_secret_key()
 
 print(f'{Fore.GREEN}Secret key {env_data["secret_key"]} was generated{Style.RESET_ALL}')
 
+# ------------------------------------------------------ Creating .env file -----------------------------------------------------------------------
 create_env_file(env_data)
+
+# ---------------------------------------------------- Renaming directories -----------------------------------------------------------------------
 rename_project(env_data['project_name'])
 
-# env = sys.argv[1]
-#
-# print(f'Creating local setting file for {env}')
-#
-# current_dir = path.dirname(__file__)
-#
-# print(current_dir)
-#
-# this_dir = path.dirname(__file__)
-# filename = path.realpath("{0}/settings/prod_settings.py".format(this_dir))
-#
-# file_setting_path = path.join(current_dir, f'settings\\{env}_settings.py')
-# target_path = r'./local_settings.py'
-#
-# print(filename)
-# if not path.isfile(filename):
-#     print(f'{Fore.RED}No settings file found for the given environment{Style.RESET_ALL}')
-#     quit()
-
-
-# shutil.copyfile(file_setting_path, target_path)
-
-# print('Setting file created')
 
 
 
