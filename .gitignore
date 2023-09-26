@@ -3,3 +3,4 @@ frontend
 kudelasz/static
 venv
 __pycache__/
+.env
