@@ -42,10 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    env('PROJECT_NAME'),
-
     'rest_framework',
-    'rest_framework.authtoken'
+    env('PROJECT_NAME'),
+    'user_auth.apps.UserApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +89,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = f'{env("PROJECT_NAME")}.wsgi.application'
+
+AUTH_USER_MODEL = 'user_auth.AppUser'
 
 
 
@@ -139,11 +140,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 30,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication'
     )
 }
