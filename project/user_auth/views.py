@@ -15,9 +15,10 @@ class UserRegister(APIView):
         serializer = UserRegisterSerializer(data=clean_data)
 
         if serializer.is_valid(raise_exception=True):
-            # return Response({'loszar': make_password()}, status=status.HTTP_200_OK)
             user = serializer.create(clean_data)
             if user:
+                user.set_password(clean_data['password'])
+                user.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
@@ -35,6 +36,7 @@ class UserLogin(APIView):
         if serializer.is_valid(raise_exception=True):
             user = serializer.check_user(data)
             login(request, user)
+
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)

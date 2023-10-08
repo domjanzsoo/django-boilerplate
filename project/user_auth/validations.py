@@ -1,6 +1,5 @@
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import make_password
 
 UserModel = get_user_model()
 
@@ -14,8 +13,6 @@ def custom_validaton(data):
 
     if not password or len(password) < 8:
         raise ValidationError('Password must be min 8 chars long.')
-    else:
-        data['password'] = make_password(data['password'])
 
     if not username:
         raise ValidationError('Username is required.')
